@@ -49,9 +49,30 @@ class Arrays
      * @throws InvalidArgumentTypeException
      * @param array $data 字典
      * @return string xml 字符串
-
      */
     public static function toXml(array $data)
+    {
+        $xml = '';
+        if (!is_array($data)) {
+            throw new InvalidArgumentTypeException(" Argument need array type");
+        }
+        foreach ($data as $key => $val) {
+            is_numeric($key) && $key = "item id=\"$key\"";
+            $xml .= "<$key>";
+            $xml .= (is_array($val) || is_object($val)) ? self::toXml($val) : $val;
+            list($key,) = explode(' ', $key);
+            $xml .= "</$key>";
+        }
+        return $xml;
+    }
+
+    /**
+     * 数组转XML 无 version 信息 toXmlCDATA
+     * @throws InvalidArgumentTypeException
+     * @param array $data 字典
+     * @return string xml 字符串
+     */
+    public static function toXmlCDATA(array $data)
     {
         $xml = '';
         if (!is_array($data)){
@@ -60,7 +81,7 @@ class Arrays
         foreach ($data as $key => $val) {
             is_numeric($key) && $key = "item id=\"$key\"";
             $xml .= "<$key>";
-            $xml .= (is_array($val) || is_object($val)) ? self::toXml($val) : $val;
+            $xml .= (is_array($val) || is_object($val)) ? self::toXml($val) : "<![CDATA[{$val}]]>";
             list($key,) = explode(' ', $key);
             $xml .= "</$key>";
         }
