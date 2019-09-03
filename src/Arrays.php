@@ -6,15 +6,14 @@
 
 namespace VlinkedUtils;
 
-
 class Arrays
 {
-    /**
-     * 获取数组中的key 对应的 values
+    /**获取数组中的key 对应的 values 可以设置初始值
      * @param array $arr
-     * @param string|int|array $key one or more keys
-     * @return mixed
-     * @throws  \Exception
+     * @param $key
+     * @param null $default
+     * @return array|mixed|null
+     * @throws InvalidArgumentTypeException
      */
     public static function get(array $arr, $key, $default = null)
     {
@@ -23,7 +22,7 @@ class Arrays
                 $arr = $arr[$k];
             } else {
                 if (func_num_args() < 3) {
-                    throw new \Exception("Missing item '$k'.");
+                    throw new InvalidArgumentTypeException("Missing item '$k'.");
                 }
                 return $default;
             }
@@ -34,6 +33,7 @@ class Arrays
     /**
      * 将数组转成对象
      * @param array $arr
+     * @param object $obj
      * @return object
      */
     public static function toObject(array $arr, $obj)
@@ -44,15 +44,19 @@ class Arrays
         return $obj;
     }
 
-
     /**
      * 数组转XML 无 version 信息
+     * @throws InvalidArgumentTypeException
      * @param array $data 字典
      * @return string xml 字符串
+
      */
-    public static function toXml($data)
+    public static function toXml(array $data)
     {
         $xml = '';
+        if (!is_array($data)){
+            throw new InvalidArgumentTypeException(" Argument need array type");
+        }
         foreach ($data as $key => $val) {
             is_numeric($key) && $key = "item id=\"$key\"";
             $xml .= "<$key>";

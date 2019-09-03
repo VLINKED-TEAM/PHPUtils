@@ -1,8 +1,19 @@
-# VlinkedUtils
+
 VLINKED PHP 拓展工具包
 
+# 使用
+composer.json 设置如下
+```json
+{
+"require-dev": {
+    "vlinked/utils": "dev-master"
+  }
+}
 
->积微成著 微联可达
+```
+获得最新的开发版本，后续会整合固定版本
+
+
 # 规则
 
 ## ⚠注意⚠
@@ -42,3 +53,6 @@ VLINKED PHP 拓展工具包
 
 - Arrays 数组相关系
 - Date 时间日期相关的
+
+
+>积微成著 微联可达

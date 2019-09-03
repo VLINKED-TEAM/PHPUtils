@@ -13,7 +13,7 @@ class Client
      * @param string $getParam 数据参数
      * @param int $timeout 请求超时时间
      * @return bool|string
-     * @throws HttpException
+     * @throws HttpCurlException
      */
     public static function curlGet($url = '', $getParam = '', $timeout = 10)
     {
@@ -32,7 +32,7 @@ class Client
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
-            throw new HttpException(__LINE__."curlGet :url{$url} curl error no " . curl_errno($ch) . " | error msg :" . curl_error($ch));
+            throw new HttpCurlException($ch);
         }
         curl_close($ch);
         return $data;
@@ -44,9 +44,9 @@ class Client
      * @param array $options 设置
      * @param int $timeout 设置cURL允许执行的最长秒数
      * @return bool|string
-     * @throws HttpException
+     * @throws HttpCurlException
      */
-    public static function curlPost($url = '', $postData = '', $options = array(), $timeout = 30)
+    public static function curlPost($url = '', $postData = '', $options = array(), $timeout = 20)
     {
         if (is_array($postData)) {
             $postData = http_build_query($postData);
@@ -65,11 +65,16 @@ class Client
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
-            throw new HttpException(__LINE__."curlPost :url{$url} curl error no " . curl_errno($ch) . " | error msg :" . curl_error($ch));
+            throw new HttpCurlException($ch);
         }
         curl_close($ch);
         return $data;
     }
+
+    // 下载图片
+
+
+
 
 
 }
