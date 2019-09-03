@@ -48,6 +48,12 @@ class RegexpException extends \Exception
 {
 }
 
+
+class AssertionException extends \Exception
+{
+
+}
+
 namespace VlinkedUtils\Http;
 
 class HttpCurlException extends \Exception
