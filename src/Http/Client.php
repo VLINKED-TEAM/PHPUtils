@@ -73,7 +73,7 @@ class Client
     }
 
     /**
-     * 使用双向证书POST请求
+     * 使用双向证书POST请求HTTPS接口
      * @param string $url 接口地址
      * @param string|array $param 参数
      * @param string $cert_path 证书绝对路径

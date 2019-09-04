@@ -53,6 +53,8 @@ composer.json 设置如下
 
 - Arrays 数组相关系
 - Date 时间日期相关的
+- String 字符串处理
+- Validators 验证类
 
 
 >积微成著 微联可达

@@ -40,6 +40,15 @@ class IOException extends \RuntimeException
 {
 }
 
+/**
+ * json异常
+ * Class JsonException
+ * @package VlinkedUtils
+ */
+class JsonException extends \RuntimeException
+{
+}
+
 class FileNotFoundException extends IOException
 {
 }
@@ -67,6 +76,7 @@ class HttpCurlException extends \Exception
      * @var string curl的错误信息
      */
     public $error_msg;
+
     /**
      * HttpException constructor.
      * @param resource $curl_context
@@ -80,6 +90,17 @@ class HttpCurlException extends \Exception
         parent::__construct($this->error_msg, $this->error_code);
 
 
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            "errcode" => $this->error_code,
+            "errmsg" => $this->error_msg,
+        ];
     }
 
 }
