@@ -4,6 +4,8 @@
 namespace VlinkedUtils\Http;
 
 
+use VlinkedUtils\Strings;
+
 class Client
 {
 
@@ -19,17 +21,21 @@ class Client
     {
         if (is_array($getParam)) {
             $getParam = http_build_query($getParam);
+            $url .= "?" . $getParam;
         }
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url . "?" . $getParam);
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 返回文件流而不是输出
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout); //
         if (!empty($options)) {
             curl_setopt_array($ch, $options);
         }
         //https请求 不验证证书和host
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        if (Strings::contains($url, "https://")) {
+            echo $url . "\n";
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        }
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
             throw new HttpCurlException($ch);

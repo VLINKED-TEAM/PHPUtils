@@ -40,6 +40,10 @@ class IOException extends \RuntimeException
 {
 }
 
+class StaticFunctionNotFind extends \RuntimeException
+{
+}
+
 /**
  * json异常
  * Class JsonException

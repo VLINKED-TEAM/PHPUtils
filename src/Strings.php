@@ -20,6 +20,73 @@ class Strings
     }
 
     /**
+     * @desc  php获取中文字符拼音首字母
+     * @param $str
+     * @return string
+     */
+    function getFirstCharter($str)
+    {
+        if (empty($str)) {
+            return '#';
+        }
+        $f_char = ord($str{0});
+        if ($f_char >= ord('A') && $f_char <= ord('z')) return strtoupper($str{0});
+        $s1 = iconv('UTF-8', 'gb2312', $str);
+        $s2 = iconv('gb2312', 'UTF-8', $s1);
+        $s = $s2 == $str ? $s1 : $str;
+        $asc = ord($s{0}) * 256 + ord($s{1}) - 65536;
+        if ($asc >= -20319 && $asc <= -20284) return 'A';
+        if ($asc >= -20283 && $asc <= -19776) return 'B';
+        if ($asc >= -19775 && $asc <= -19219) return 'C';
+        if ($asc >= -19218 && $asc <= -18711) return 'D';
+        if ($asc >= -18710 && $asc <= -18527) return 'E';
+        if ($asc >= -18526 && $asc <= -18240) return 'F';
+        if ($asc >= -18239 && $asc <= -17923) return 'G';
+        if ($asc >= -17922 && $asc <= -17418) return 'H';
+        if ($asc >= -17417 && $asc <= -16475) return 'J';
+        if ($asc >= -16474 && $asc <= -16213) return 'K';
+        if ($asc >= -16212 && $asc <= -15641) return 'L';
+        if ($asc >= -15640 && $asc <= -15166) return 'M';
+        if ($asc >= -15165 && $asc <= -14923) return 'N';
+        if ($asc >= -14922 && $asc <= -14915) return 'O';
+        if ($asc >= -14914 && $asc <= -14631) return 'P';
+        if ($asc >= -14630 && $asc <= -14150) return 'Q';
+        if ($asc >= -14149 && $asc <= -14091) return 'R';
+        if ($asc >= -14090 && $asc <= -13319) return 'S';
+        if ($asc >= -13318 && $asc <= -12839) return 'T';
+        if ($asc >= -12838 && $asc <= -12557) return 'W';
+        if ($asc >= -12556 && $asc <= -11848) return 'X';
+        if ($asc >= -11847 && $asc <= -11056) return 'Y';
+        if ($asc >= -11055 && $asc <= -10247) return 'Z';
+        return '#';
+    }
+
+
+    /**
+     * 生成随机字符串
+     * @param int $length
+     * @return string
+     */
+    public static function createNonceStr($length = 16)
+    {
+        $chars = [
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+            "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
+            "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G",
+            "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+            "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2",
+            "3", "4", "5", "6", "7", "8", "9"
+        ];
+        $charsLen = count($chars) - 1;
+        shuffle($chars);    // 将数组打乱
+        $output = "";
+        for ($i = 0; $i < $length; $i++) {
+            $output .= $chars[mt_rand(0, $charsLen)];
+        }
+        return $output;
+    }
+
+    /**
      * 截取指定长度字符串: width 所需修剪的宽度，中英文配比为二比一
      * @param $str
      * @param $width
@@ -104,7 +171,7 @@ class Strings
     /**
      * $haystack 字符串是否包含 $needle
      * @param string $haystack 大字符串
-     * @param string $needle  拿去检查的字符串
+     * @param string $needle 拿去检查的字符串
      * @return bool
      */
     public static function contains($haystack, $needle)
@@ -160,6 +227,7 @@ class Strings
     {
         return str_replace(["\r\n", "\r"], "\n", $s);
     }
+
     /**
      * Truncates string to maximal length.
      * @param string  UTF-8 encoding

@@ -93,4 +93,41 @@ class Arrays
         }
         return $xml;
     }
+
+    /**
+     * 子元素计数器
+     * @param array $array
+     * @param int $pid
+     * @return array
+     */
+    public static function countChildren($array, $pid)
+    {
+        $counter = [];
+        foreach ($array as $item) {
+            $count = isset($counter[$item[$pid]]) ? $counter[$item[$pid]] : 0;
+            $count++;
+            $counter[$item[$pid]] = $count;
+        }
+        return $counter;
+    }
+
+    /**
+     * 数组层级缩进转换
+     * @param array $array 源数组
+     * @param int $pid
+     * @param int $level
+     * @return array
+     */
+    public static function arrayToLevel($array, $pid = 0, $level = 1)
+    {
+        static $list = [];
+        foreach ($array as $v) {
+            if ($v['pid'] == $pid) {
+                $v['level'] = $level;
+                $list[] = $v;
+                array2level($array, $v['id'], $level + 1);
+            }
+        }
+        return $list;
+    }
 }
