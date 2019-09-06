@@ -7,7 +7,7 @@ namespace VlinkedUtils\Lottery;
 class Lottery
 {
     /**
-     * todo
+     * t
      * 抽奖概率计算
      */
     function get_rand($proArr)
