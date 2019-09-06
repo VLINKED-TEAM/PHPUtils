@@ -9,8 +9,6 @@ class Lottery
     /**
      * todo
      * 抽奖概率计算
-     * @param  [type] $proArr [description]
-     * @return [type]         [description]
      */
     function get_rand($proArr)
     {

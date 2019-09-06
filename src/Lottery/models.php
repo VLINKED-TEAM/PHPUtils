@@ -4,7 +4,7 @@
 namespace VlinkedUtils\Lottery;
 
 
-class Item
+class PrizesItem
 {
     public $id;
     public $name;
@@ -14,25 +14,25 @@ class Item
      * Item constructor.
      * @param $id
      * @param $name
-     * @param $weight
+     * @param $stock
      */
-    public function __construct($id, $name, $weight)
+    public function __construct($id, $name, $stock)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->weight = $weight;
+        $this->weight = $stock;
     }
 
 
     /**
      * @param $id
      * @param $name
-     * @param $weight
-     * @return Item
+     * @param $stock
+     * @return PrizesItem
      */
-    public static function load($id, $name, $weight)
+    public static function load($id, $name, $stock)
     {
-        $item = new Item($id, $name, $weight);
+        $item = new PrizesItem($id, $name, $stock);
 
         return $item;
     }
