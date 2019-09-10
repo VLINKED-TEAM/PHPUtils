@@ -67,6 +67,7 @@ class Client
         if (!empty($options)) {
             curl_setopt_array($ch, $options);
         }
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ["Expect:"]); // 解决数据过大导致状态码100问题
         //https请求 不验证证书和host
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
