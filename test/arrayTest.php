@@ -19,6 +19,8 @@ try {
     echo "\t\n";
     echo Arrays::toXml($arr);
     echo "\t\n";
+    echo $json = Json::encode($arr) . PHP_EOL;
+    var_export(Json::decode($json, 1));
 } catch (InvalidArgumentTypeException $e) {
     var_dump($e->getMessage());
 }

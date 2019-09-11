@@ -36,7 +36,7 @@ class Json
      * @param int  accepts Json::FORCE_ARRAY
      * @return mixed
      */
-    public static function decode($json, $options = 0)
+    public static function decode($json, $options = 1)
     {
         $forceArray = (bool)($options & self::FORCE_ARRAY);
         $flags = JSON_BIGINT_AS_STRING;
