@@ -25,6 +25,12 @@ class Container
             self::ZhenyuanSchool => ["yunmaapp.NET"],
         ];
 
+    /**
+     * 调用静态方法时
+     * @param string $name 方法名
+     * @param string $arguments 参数
+     * @return bool|mixed
+     */
     public static function __callStatic($name, $arguments)
     {
         $methods = get_class_methods(__CLASS__);

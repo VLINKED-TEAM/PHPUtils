@@ -6,12 +6,19 @@
 
 namespace VlinkedUtils;
 
+
+/**
+ *
+ * 数组相关的拓展函数
+ * @package VlinkedUtils
+ */
 class Arrays
 {
-    /**获取数组中的key 对应的 values 可以设置初始值
-     * @param array $arr
-     * @param $key
-     * @param null $default
+    /**
+     * 获取数组中的key 对应的 values 可以设置初始值
+     * @param array $arr 需要取值的数组
+     * @param string $key 需要取值的key
+     * @param null $default 当key的值不存在的时候默认值
      * @return array|mixed|null
      * @throws InvalidArgumentTypeException
      */

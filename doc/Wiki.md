@@ -1,11 +1,17 @@
-# 文件说明
+# 使用说明
+需要电脑已经安装好 [composer](https://docs.phpcomposer.com/) 
+
+
+
+
+# 目录结构
 
 ```shell
 ├── src
-│   ├── Arrays.php
-│   ├── Container.php
-│   ├── Date.php
-│   ├── Http
+│   ├── Arrays.php  数组相关
+│   ├── Container.php 浏览器容器判断识别
+│   ├── Date.php 日期
+│   ├── Http Http
 │   │   ├── Client.php
 │   │   └── Response.php
 │   ├── Json.php
@@ -14,7 +20,7 @@
 │   ├── Lottery
 │   │   ├── Lottery.php
 │   │   └── models.php
-│   ├── Objects.phpxs
+│   ├── Objects.php
 │   ├── Random.php
 │   ├── Servers.php
 │   ├── Strings.php
@@ -29,3 +35,20 @@
 │   └── randomTest.php
 
 ```
+
+# 模块说明
+
+## Arrays
+数组操作相关的拓展工具函数
+
+
+## Container
+
+## Date
+
+## Http
+
+## Objects
+## Servers
+## Strings
+## Validators

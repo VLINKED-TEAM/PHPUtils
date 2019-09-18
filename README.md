@@ -3,14 +3,25 @@ VLINKED PHP 拓展工具包
 
 # 使用
 composer.json 设置如下
+
+
 ```json
 {
-"require-dev": {
-    "vlinked/utils": "dev-master"
+"require": {
+    "vlinked/utils": "~1.0.0"
   }
 }
 
 ```
+
+
+或者使用命令行
+
+```shell
+composer require vlinked/utils
+
+```
+
 获得最新的开发版本，后续会整合固定版本
 
 

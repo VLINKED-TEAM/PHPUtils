@@ -8,7 +8,7 @@ class PrizesItem
 {
     public $id;
     public $name;
-    public $weight;
+    public $stock;
 
     /**
      * Item constructor.
@@ -20,7 +20,7 @@ class PrizesItem
     {
         $this->id = $id;
         $this->name = $name;
-        $this->weight = $stock;
+        $this->stock = $stock;
     }
 
 
@@ -46,6 +46,27 @@ class ItemList
      *
      */
     public $list;
+
+    public $len;
+
+    /**
+     * ItemList constructor.
+     */
+    public function __construct()
+    {
+        $this->len = 0;
+        $this->list = null;
+    }
+
+    /**
+     *
+     * @param PrizesItem $item
+     */
+    public function add($item)
+    {
+        $this->list[] = $item;
+        $this->len += 1;
+    }
 
 
 }
