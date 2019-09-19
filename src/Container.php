@@ -8,6 +8,7 @@ namespace VlinkedUtils;
  * 容器判断 判断当前运行的web 所在的容器环境
  * @method static isWeChat
  * @method static isREL
+ * @method static isREG
  * @method static isZhenuanSchool
  * Class Container
  * @package VlinkedUtils
@@ -16,12 +17,14 @@ class Container
 {
     const WeChat = "WeChat";
     const REL = "REL";
+    const REG = "REG";
     const ZhenyuanSchool = "ZhenyuanSchool";
 
     public static $rules =
         [
             self::WeChat => ["MicroMessenger", "Windows Phone"],
             self::REL => ["ICBCiPhoneBSNew", "ICBCAndroidBS"],
+            self::REG => ["newEmallVersion"],
             self::ZhenyuanSchool => ["yunmaapp.NET"],
         ];
 

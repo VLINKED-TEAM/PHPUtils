@@ -18,11 +18,10 @@ class Date
 
     /**
      * 获取日期以及日期格式话函数
-     * @throws InvalidArgumentTypeException
-     * @param $fmt
-     * @param bool|string $now
+     * @param string $fmt 日期格式
+     * @param bool|string $now 是否获取当前时间的
      * @return string
-
+     * @throws InvalidArgumentTypeException
      */
     public static function formatDate($fmt = Date::DATE_FMT_MYSQL_DATETIME, $now = true)
     {

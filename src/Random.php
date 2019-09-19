@@ -11,6 +11,7 @@ class Random
      * @param int 长度
      * @param string 随机字符数字表默认 0-9a-z
      * @return string 返回随机的字符串
+     * @throws \Exception
      */
     public static function generate($length = 10, $charlist = '0-9a-z')
     {

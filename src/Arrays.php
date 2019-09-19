@@ -102,6 +102,27 @@ class Arrays
     }
 
     /**
+     * 获取数组的值 用. 来代替[]
+     * @param array $arr
+     * @param string $key
+     * @param string $default 默认值
+     * @return string
+     */
+    public static function assetFetch(array $arr, $key, $default = "")
+    {
+        $keyPath = explode(".", $key);// 我可以获得userinfo.name 就不需要['userinfo']['name']
+        foreach ($keyPath as $val) {
+            if (isset($param[$val])) {
+                $arr = $arr[$val];
+            } else {
+                return $default;
+            }
+        }
+        return $arr;
+
+    }
+
+    /**
      * 子元素计数器
      * @param array $array
      * @param int $pid
@@ -132,7 +153,7 @@ class Arrays
             if ($v['pid'] == $pid) {
                 $v['level'] = $level;
                 $list[] = $v;
-                array2level($array, $v['id'], $level + 1);
+                self::arrayToLevel($array, $v['id'], $level + 1);
             }
         }
         return $list;
