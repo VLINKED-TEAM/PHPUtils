@@ -14,10 +14,9 @@ $arr = [
         ]
 ];
 
+
 try {
-    echo Arrays::toXmlCDATA($arr);
-    echo "\t\n";
-    echo Arrays::toXml($arr);
+    echo Arrays::get($arr, 'test.ddd.22', "");
     echo "\t\n";
     echo $json = Json::encode($arr) . PHP_EOL;
     var_export(Json::decode($json, 1));
