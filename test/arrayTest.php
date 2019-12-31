@@ -16,7 +16,8 @@ $arr = [
 
 
 try {
-    echo Arrays::get($arr, 'test.ddd.22', "");
+    echo Arrays::get($_GET, 'test.ddd.22', "f");
+
     echo "\t\n";
     echo $json = Json::encode($arr) . PHP_EOL;
     var_export(Json::decode($json, 1));
