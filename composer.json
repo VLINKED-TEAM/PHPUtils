@@ -13,6 +13,7 @@
         }
     ],
     "require": {
+        "phpmailer/phpmailer": "^5.2",
         "php": ">=5.4.0",
         "ext-json": "*",
         "ext-openssl": "*",

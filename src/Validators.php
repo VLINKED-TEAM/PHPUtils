@@ -17,7 +17,7 @@ class Validators
         'int' => 'is_int',
         'integer' => 'is_int',
         'float' => 'is_float',
-        'number' => [__CLASS__, 'isNumber'],
+        'number' => [__CLASS__, ''],
         'numeric' => [__CLASS__, 'isNumeric'],
         'numericint' => [__CLASS__, 'isNumericInt'],
         'string' => 'is_string',
