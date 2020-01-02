@@ -4,7 +4,12 @@
     "type": "library",
     "license": "MIT",
     "autoload": {
-        "classmap":["src/"]
+        "psr-4": {
+            "VlinkedUtils\\": "src/VlinkedUtils"
+        },
+        "classmap": [
+            "src/exception.php"
+        ]
     },
     "authors": [
         {

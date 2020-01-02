@@ -2,6 +2,7 @@
 
 namespace VlinkedUtils\Message\Mail;
 
+
 use PHPMailer;
 
 /**
@@ -13,9 +14,10 @@ class Mailer
 {
     /**
      * @param MailConfig $mailConfig
-     * @param MailMessage $mailmessage
+     * @param MailMessage $mailMessage
+     * @throws \phpmailerException
      */
-    public static function sendMail($mailConfig, $mailmessage)
+    public static function sendMail($mailConfig, $mailMessage)
     {
         //实例化PHPMailer核心类
         $mail = new PHPMailer();
@@ -57,19 +59,12 @@ class Mailer
 
         //邮件正文是否为html编码 注意此处是一个方法 不再是属性 true或false
 
-
         //设置收件人邮箱地址 该方法有两个参数 第一个参数为收件人邮箱地址 第二参数为给该地址设置的昵称 不同的邮箱系统会自动进行处理变动 这里第二个参数的意义不大
-        foreach ($mailmessage->getRecevie() as $k => $v) {
+        foreach ($mailMessage->getRecevie() as $k => $v) {
             $mail->addAddress($v, $mailConfig->getUseraname()); //添加收件人（地址，昵称）
             $mail->isHTML(false); //支持html格式内容
-            $mail->Body = $mailmessage->getContent(); //邮件主体内容
-
-            //发送成功就删除
-            if ($mail->send()) {
-                echo "发送成功";
-            } else {
-                echo "Mailer Error: " . $mail->ErrorInfo;// 输出错误信息
-            }
+            $mail->Body = $mailMessage->getContent(); //邮件主体内容
+            $mail->send();
         }
     }
 }
