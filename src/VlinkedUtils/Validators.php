@@ -44,6 +44,7 @@ class Validators
         'space' => 'ctype_space',
         'xdigit' => 'ctype_xdigit',
         'iterable' => [__CLASS__, 'isIterable'],
+        'idcard'   => [__CLASS__, 'isIdcard'],//身份证
     ];
 
     protected static $counters = [
@@ -327,4 +328,9 @@ class Validators
     {
         return is_array($value) || $value instanceof \Traversable;
     }
+
+    public static  function isIdcard($value){
+        return (bool)preg_match('\d{17}[\d|x]|\d{15}', $value);
+    }
+
 }
