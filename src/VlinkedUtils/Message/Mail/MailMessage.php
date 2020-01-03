@@ -35,6 +35,7 @@ class MailMessage extends MessageContent
      * @param string $titile
      * @param string $conten
      * @param array $recivers
+     * @throws \Exception
      */
     public function __construct($titile, $conten, $recivers)
     {
@@ -53,25 +54,30 @@ class MailMessage extends MessageContent
 
     /**
      * @param string $title
+     * @throws \Exception
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        if(empty($title)){
+            throw  new \Exception("标题不能为空");
+        }
     }
 
     /**
      * @param array $recevie
+     * @throws \Exception
      */
-//    public function setRecevie($recevie)
-//    {
-//        // 进过一些处理检查内容必选为 邮箱地址
-//       if ( Validators::everyIs($recevie,"email")){
-//           throw  new \Exception("检查接受者格式必须为mail");
-//       }
-//       parent::setRecevie($recevie);
-//
-//
-//    }
+    public function setRecevie($recevie)
+    {
+        // 进过一些处理检查内容必选为 邮箱地址
+       if ( Validators::everyIs($recevie,"email")){
+           throw  new \Exception("检查接受者格式必须为email");
+       }
+       parent::setRecevie($recevie);
+
+
+    }
 
 
 }

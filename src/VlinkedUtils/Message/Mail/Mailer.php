@@ -40,7 +40,7 @@ class Mailer
         $mail->Port = $mailConfig->getPort();
 
         //设置发件人的主机域 可有可无 默认为localhost 内容任意，建议使用你的域名
-        $mail->Hostname = '';
+        $mail->Hostname = $mailConfig->getUseraname();
 
         //设置发送的邮件的编码 可选GB2312 我喜欢utf-8 据说utf8在某些客户端收信下会乱码
         $mail->CharSet = 'UTF-8';
@@ -63,6 +63,7 @@ class Mailer
         foreach ($mailMessage->getRecevie() as $k => $v) {
             $mail->addAddress($v, $mailConfig->getUseraname()); //添加收件人（地址，昵称）
             $mail->isHTML(false); //支持html格式内容
+            $mail->Subject = $mailMessage->getTitle();//邮件主题
             $mail->Body = $mailMessage->getContent(); //邮件主体内容
             $mail->send();
         }
