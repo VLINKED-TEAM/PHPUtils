@@ -6,25 +6,28 @@
 
 # 目录结构
 
-```text
-├── Arrays.php    
-├── Container.php
-├── Date.php
+```
+├── Arrays.php          /// 数组操作相关的拓展工具函数
+├── Container.php       /// 容器
+├── Date.php            /// 与时间和日期相关的工具函数
 ├── Http
-│   ├── Client.php
-│   └── Response.php
-├── Json.php
+│   ├── Client.php      /// HTTP请求客户端
+│   └── Response.php    /// 响应
+├── Message
+│   └── Mail            /// 发送邮件
+│       └── MailConfig.php   
+│       └── Mailer.php       
+│       └── MailConfig.php   
+│   └── MailContent.php
 ├── Log
-│   └── FileLog.php
-├── Lottery
-│   ├── Lottery.php
-│   └── models.php
-├── Objects.php
-├── Random.php
-├── Servers.php
-├── Strings.php
-├── Validators.php
-└── exception.php
+│   └── FileLog.php     /// 记录日志文件
+├── Objects.php         
+├── Random.php          /// 获取随机字符串
+├── Servers.php         /// $_SERVER 相关处理
+├── Strings.php         /// 字符串操作
+├── Validators.php      /// 验证器类
+├── Json.php
+└── exception.php       /// 抛出异常
 
 ```
 
