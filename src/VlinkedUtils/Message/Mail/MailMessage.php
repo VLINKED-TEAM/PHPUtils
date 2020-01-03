@@ -25,16 +25,16 @@ class MailMessage extends MessageContent
      * @var string
      */
     private $title;
+
     /**
-     * MailMessage constructor.
+     * @var bool
      */
-
-
     /**
      * MailMessage constructor.
      * @param string $titile
      * @param string $conten
      * @param array $recivers
+     * @param bool $isHtml
      * @throws \Exception
      */
     public function __construct($titile, $conten, $recivers)
@@ -70,14 +70,11 @@ class MailMessage extends MessageContent
      */
     public function setRecevie($recevie)
     {
-        // 进过一些处理检查内容必选为 邮箱地址
-       if ( Validators::everyIs($recevie,"email")){
-           throw  new \Exception("检查接受者格式必须为email");
-       }
+//         进过一些处理检查内容必选为 邮箱地址
+//       if ( Validators::everyIs($recevie,"email")){
+//           throw  new \Exception("检查接受者格式必须为email");
+//       }
        parent::setRecevie($recevie);
-
-
     }
-
 
 }

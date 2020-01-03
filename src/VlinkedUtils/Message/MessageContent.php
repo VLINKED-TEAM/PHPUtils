@@ -38,6 +38,7 @@ class MessageContent
      */
     public function setContent($content)
     {
+
         $this->content = $content;
     }
 
