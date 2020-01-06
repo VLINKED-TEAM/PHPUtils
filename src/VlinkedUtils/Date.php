@@ -57,4 +57,13 @@ class Date
     {
         return $perfix . self::formatDate(DATE::DATE_FMT_NO_SPACE) . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT) . $interpolatory;
     }
+
+    /**
+     * 当前Y-m-d H:i:s 时间戳
+     * @return string
+     */
+    public static function nowDateTime()
+    {
+        return self::formatDate();
+    }
 }
