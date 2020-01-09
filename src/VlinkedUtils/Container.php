@@ -16,8 +16,8 @@ namespace VlinkedUtils;
 class Container
 {
     const WeChat = "WeChat";
-    const REL = "REL";
-    const REG = "REG";
+    const REL = "Rel";
+    const REG = "Reg";
     const ZhenyuanSchool = "ZhenyuanSchool";
 
     public static $rules =
