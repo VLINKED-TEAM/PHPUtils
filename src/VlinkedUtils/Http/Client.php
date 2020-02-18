@@ -27,14 +27,15 @@ class Client
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 返回文件流而不是输出
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout); //
-        if (!empty($options)) {
-            curl_setopt_array($ch, $options);
-        }
+
         //https请求 不验证证书和host
         if (Strings::contains($url, "https://")) {
             echo $url . "\n";
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        }
+        if (!empty($options)) {
+            curl_setopt_array($ch, $options);
         }
         $data = curl_exec($ch);
         if (curl_errno($ch)) {
@@ -64,10 +65,14 @@ class Client
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout); //
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ["Expect:"]); // 解决数据过大导致状态码100问题
         if (!empty($options)) {
+            if (isset($options[CURLOPT_HTTPHEADER])) {
+                $options[CURLOPT_HTTPHEADER] = array_merge(["Expect:"], $options[CURLOPT_HTTPHEADER]);
+            }
             curl_setopt_array($ch, $options);
         }
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ["Expect:"]); // 解决数据过大导致状态码100问题
+
         //https请求 不验证证书和host
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
