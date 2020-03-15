@@ -26,6 +26,7 @@
         "ext-curl": "*",
         "ext-iconv": "*",
         "ext-mbstring": "*",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "ext-http": "*"
     }
 }
