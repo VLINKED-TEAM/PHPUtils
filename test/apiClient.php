@@ -8,15 +8,15 @@ use VlinkedUtils\Http\VlinkedApiClient;
 require_once __DIR__ . "/../vendor/autoload.php";
 
 
-$apiPath1 = Env::get("app.host") . "/public/service/oauth/phone";
+$apiPath1 = Env::get("app.host") . "/public/service/token/getWxJsTicket";
 $appid = Env::get("app.appid");
 $appkey = Env::get("app.appkey");
 
 
-$apiClient = new VlinkedApiClient($appid, $appkey);
+$apiClient = new VlinkedApiClient($appid, $appkey, false);
 
 
-$param['openid'] = "sdaasdas2asd";
+//$param['openid'] = "sdaasdasdasd";
 $param['platid'] = "1231231";
 
 try {
