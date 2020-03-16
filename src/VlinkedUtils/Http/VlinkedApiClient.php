@@ -126,7 +126,7 @@ class VlinkedApiClient
     }
 
     /**
-     * @param $params
+     * @param $paramsgit
      * @param $t string
      * @return string
      */
