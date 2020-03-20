@@ -30,7 +30,6 @@ class Client
 
         //https请求 不验证证书和host
         if (Strings::contains($url, "https://")) {
-            echo $url . "\n";
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         }

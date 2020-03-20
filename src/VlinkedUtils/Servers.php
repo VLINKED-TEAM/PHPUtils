@@ -55,5 +55,22 @@ class Servers
         return !empty($onlineip[0]) ? $onlineip[0] : '0.0.0.0';
     }
 
+    /**
+     * @param bool $noNeedHost 不需要host 以及 http协议信息
+     * @return string 得到当前访问路径的url 包含参数
+     */
+    public static function getNowUrlPath($noNeedHost = false)
+    {
+        if ($noNeedHost) {
+            return $_SERVER["REQUEST_URI"];
+        }
+        if ($_SERVER["SERVER_PORT"] == 443) {
+            $prol = "https";
+        } else {
+            $prol = "http";
+        }
+        return $prol . '://' . $_SERVER['SERVER_NAME'] . $_SERVER["REQUEST_URI"];
+    }
+
 
 }

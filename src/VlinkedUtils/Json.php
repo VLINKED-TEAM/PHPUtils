@@ -9,6 +9,18 @@ class Json
     const FORCE_ARRAY = 0b0001;
     const PRETTY = 0b0010;
 
+
+    public static function encode_cn($struct)
+    {
+        return preg_replace("/\\\\u([a-f0-9]{4})/e",
+            "iconv('UCS-4LE','UTF-8',pack('V', hexdec('U$1')))", json_encode($struct));
+    }
+
+    public static function encodeUnescapedUnicode(array $arr)
+    {
+        return json_encode($arr, JSON_UNESCAPED_UNICODE);
+    }
+
     /**
      * Returns the JSON representation of a value.
      * @param mixed

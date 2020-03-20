@@ -13,21 +13,76 @@ namespace VlinkedUtils\Log;
  */
 class FileLog
 {
+    protected $config = [
+        'time_format' => ' c ',
+        'single' => false,
+        'file_size' => 2097152,
+        'path' => "",
+        'apart_level' => [],
+        'max_files' => 0,
+        'json' => false,
+    ];
 
-    static function dolog($desc = '', $datas = '')
+    /**
+     * FileLog constructor.
+     * @param $logPath
+     */
+    public function __construct($logPath)
     {
-        $time = date('H:i:s', time());
-        $filename = LOG_DIR . date('Y-m-d', time()) . '.log';
-        if (is_array($datas)) {
-            file_put_contents($filename, "[{$time}] {$desc}\n" . var_export($datas, true) . "\n\n", FILE_APPEND);
-        } else {
-            file_put_contents($filename, "[$time] {$desc}\n" . $datas . "\n\n", FILE_APPEND);
-        }
+        $this->config['path'] = $logPath;
     }
 
-    public static function __callStatic($name, $arguments)
+
+    public function save($info)
     {
-        self::dolog($name, $arguments);
+        $destination = $this->getMasterLogFile();
+
+        $path = dirname($destination);
+        !is_dir($path) && mkdir($path, 0755, true);
+        if (is_array($info)) {
+            $message = json_encode($info, JSON_UNESCAPED_UNICODE);
+        } else if (is_object($info)) {
+            $message = var_export($info, true);
+        } else {
+            $message = $info;
+        }
+        error_log($message . "\n", 3, $destination);
+    }
+
+
+    /**
+     * 从 thinkphp那边获取的方法
+     * 获取主日志文件名
+     * @access public
+     * @return string
+     */
+    protected function getMasterLogFile()
+    {
+        if ($this->config['single']) {
+            $name = is_string($this->config['single']) ? $this->config['single'] : 'single';
+
+            $destination = $this->config['path'] . $name . '.log';
+        } else {
+            $cli = PHP_SAPI == 'cli' ? '_cli' : '';
+
+            if ($this->config['max_files']) {
+                $filename = date('Ymd') . $cli . '.log';
+                $files = glob($this->config['path'] . '*.log');
+
+                try {
+                    if (count($files) > $this->config['max_files']) {
+                        unlink($files[0]);
+                    }
+                } catch (\Exception $e) {
+                }
+            } else {
+                $filename = date('Ym') . DIRECTORY_SEPARATOR . date('d') . $cli . '.log';
+            }
+
+            $destination = $this->config['path'] . $filename;
+        }
+
+        return $destination;
     }
 
 }
