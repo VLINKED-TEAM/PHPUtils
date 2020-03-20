@@ -334,29 +334,6 @@ class Strings
         return self::lower($left) === self::lower($right);
     }
 
-    /**
-     * Finds the length of common prefix of strings.
-     * @param string|array
-     * @return string
-     */
-    public static function findPrefix(...$strings)
-    {
-        if (is_array($strings[0])) {
-            $strings = $strings[0];
-        }
-        $first = array_shift($strings);
-        for ($i = 0; $i < strlen($first); $i++) {
-            foreach ($strings as $s) {
-                if (!isset($s[$i]) || $first[$i] !== $s[$i]) {
-                    while ($i && $first[$i - 1] >= "\x80" && $first[$i] >= "\x80" && $first[$i] < "\xC0") {
-                        $i--;
-                    }
-                    return substr($first, 0, $i);
-                }
-            }
-        }
-        return $first;
-    }
 
     /**
      * 返回支付长度 UTF-8
