@@ -16,12 +16,12 @@ class Mailer
      * @param MailMessage $mailMessage
      * @throws \phpmailerException
      */
-    public static function sendMail($mailConfig, $mailMessage,$isHtml = false)
+    public static function sendMail($mailConfig, $mailMessage, $isHtml = false, $debug = false)
     {
         //实例化PHPMailer核心类
         $mail = new PHPMailer();
         //是否启用smtp的debug进行调试 开发环境建议开启 生产环境注释掉即可 默认关闭debug调试模式
-        $mail->SMTPDebug = 1;
+        $mail->SMTPDebug = $debug;
 
         //使用smtp鉴权方式发送邮件
         $mail->isSMTP();
@@ -59,25 +59,28 @@ class Mailer
         //邮件正文是否为html编码 注意此处是一个方法 不再是属性 true或false
 
         //设置收件人邮箱地址 该方法有两个参数 第一个参数为收件人邮箱地址 第二参数为给该地址设置的昵称 不同的邮箱系统会自动进行处理变动 这里第二个参数的意义不大
-        foreach ($mailMessage->getRecevie() as $k => $v) {
-            $mail->addAddress($v, $mailConfig->getUseraname()); //添加收件人（地址，昵称）
-            $mail->isHTML($isHtml); //支持html格式内容
-            $mail->Subject = $mailMessage->getTitle();//邮件主题
-            if($isHtml){
-                $body = self::HtmlMail($mailMessage->getTitle(),$mailMessage->getContent());
-                $mail->Body = $body;
-            }else{
-                $mail->Body = $mailMessage->getContent(); //邮件主体内容
-            }
+        foreach ($mailMessage->getRecevie() as $name => $addr) {
+            $nickName = is_numeric($name) ? "" : $name;
+            $mail->addAddress($addr, $nickName); //添加收件人（地址，昵称）
+        }
+        $mail->isHTML($isHtml); //支持html格式内容
+        $mail->Subject = $mailMessage->getTitle();//邮件主题
+        if ($isHtml) {
+            $body = self::HtmlMail($mailMessage->getTitle(), $mailMessage->getContent());
+            $mail->Body = $body;
+        } else {
+            $mail->Body = $mailMessage->getContent(); //邮件主体内容
+        }
 
-            $staus =      $mail->send();
-            if(!$staus){
-                throw  new \Exception("发送失败".$staus);
-            }
+        $staus = $mail->send();
+        if (!$staus) {
+            throw  new \Exception("发送失败" . $staus);
         }
     }
 
-    public static function HtmlMail($title,$content){        $html = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+    public static function HtmlMail($title, $content)
+    {
+        $html = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 <html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">
 <head>
 	<!--[if gte mso 9]>
@@ -267,7 +270,7 @@ class Mailer
 </body>
 </html>
 ";
-    return $html;
+        return $html;
     }
 
 }
