@@ -10,6 +10,7 @@ namespace VlinkedUtils;
  * @method static isREL
  * @method static isREG
  * @method static isZhenuanSchool
+ * @method static isAlipay
  * Class Container
  * @package VlinkedUtils
  */
@@ -19,6 +20,7 @@ class Container
     const REL = "Rel";
     const REG = "Reg";
     const ZhenyuanSchool = "ZhenyuanSchool";
+    const Alipay = "Alipay";
 
     public static $rules =
         [
@@ -26,6 +28,7 @@ class Container
             self::REL => ["ICBCiPhoneBSNew", "ICBCAndroidBS"],
             self::REG => ["newEmallVersion"],
             self::ZhenyuanSchool => ["yunmaapp.NET"],
+            self::Alipay=>['Alipay'],
         ];
 
     /**
