@@ -45,7 +45,7 @@ class Client
     }
 
     /**
-     * POST 请求不验证 SSL 针数
+     ** POST 数据报文为 x-www-form-urlencoded 格式的请求 请求不验证 SSL 针数
      * @param string $url 地址
      * @param string $postData 请求的数据
      * @param array $options 设置
@@ -58,20 +58,14 @@ class Client
         if (is_array($postData)) {
             $postData = http_build_query($postData);
         }
+        $options = array_merge(["Expect:"], $options);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout); //
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ["Expect:"]); // 解决数据过大导致状态码100问题
-        if (!empty($options)) {
-            if (isset($options[CURLOPT_HTTPHEADER])) {
-                $options[CURLOPT_HTTPHEADER] = array_merge(["Expect:"], $options[CURLOPT_HTTPHEADER]);
-            }
-            curl_setopt_array($ch, $options);
-        }
-
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $options);
         //https请求 不验证证书和host
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -81,6 +75,28 @@ class Client
         }
         curl_close($ch);
         return $data;
+    }
+
+    /**
+     * POST 数据报文为 raw json 格式的请求
+     * @param string $url 接口地址
+     * @param array $jsonArray 参数
+     * @param array $options head头设置
+     * @param int $timeout 超时时间
+     * @return bool|string
+     * @throws HttpCurlException
+     */
+    public static function curlPostRawJson($url = '', array $jsonArray = [], $options = array(), $timeout = 20)
+    {
+        if (!is_array($jsonArray)) {
+            $jsonArray = array($jsonArray);
+        }
+        $headers = [
+            'Content-Type: application/json'
+        ];
+        $options = array_merge($headers, $options);
+        $jsonString = json_encode($jsonArray, JSON_UNESCAPED_UNICODE);
+        return self::curlPost($url, $jsonString, $options, $timeout);
     }
 
     /**
